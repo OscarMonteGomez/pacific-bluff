@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)file:///C:/Users/kheli/Downloads/pacific_bluff.html -->
+<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pacific Bluff — Caisse</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif;}
+body{background:#080705;color:#d4c9a8;}
+.app-header{background:#0d0b07;border-bottom:2px solid #c9a84c;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;}
+.app-logo{display:flex;align-items:center;gap:10px;}
+.crest{width:34px;height:34px;border-radius:50%;border:1.5px solid #8a6b2a;background:#1a1510;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#c9a84c;}
+.app-title{font-size:16px;font-weight:700;color:#c9a84c;letter-spacing:1px;}
+.app-sub{font-size:9px;color:#5a4220;letter-spacing:3px;text-transform:uppercase;}
+.clock-time{font-size:14px;font-weight:700;color:#c9a84c;text-align:right;}
+.clock-date{font-size:10px;color:#5a4220;text-align:right;}
+.tabs{display:flex;background:#0d0b07;border-bottom:1px solid #1e1810;}
+.tab{padding:10px 18px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#3a2e18;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;}
+.tab:hover{color:#8a6b2a;}
+.tab.active{color:#c9a84c;border-bottom-color:#c9a84c;background:#080705;}
+.kpi-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#1a1510;}
+.kpi{background:#0d0b07;padding:10px 14px;text-align:center;}
+.kpi-label{font-size:8px;letter-spacing:3px;color:#3a2e18;text-transform:uppercase;margin-bottom:3px;}
+.kpi-val{font-size:18px;font-weight:700;}
+.gold{color:#c9a84c;}.green{color:#1e8449;}.red{color:#e74c3c;}.blue{color:#2980b9;}.orange{color:#ca6f1e;}
+.panel{display:none;padding:14px;}
+.panel.active{display:block;}
+.panel-title{font-size:8px;letter-spacing:4px;color:#8a6b2a;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.panel-title::after{content:'';flex:1;height:1px;background:#1e1810;}
+.main-grid{display:grid;grid-template-columns:1fr 280px;gap:0;}
+@media(max-width:700px){.main-grid{grid-template-columns:1fr;}}
+.products-area{padding:14px;}
+.cat-label{font-size:8px;letter-spacing:3px;color:#3a2e18;text-transform:uppercase;margin-bottom:6px;}
+.cat-section{margin-bottom:14px;}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:5px;}
+.prod-btn{background:#0d0b07;border:1px solid #1e1810;padding:9px 7px;cursor:pointer;text-align:center;transition:all .12s;}
+.prod-btn:hover{border-color:#8a6b2a;background:#131008;}
+.prod-btn:active{border-color:#c9a84c;}
+.prod-name{font-size:11px;color:#d4c9a8;line-height:1.3;margin-bottom:3px;}
+.prod-price{font-size:12px;font-weight:700;color:#c9a84c;}
+.prod-stock{font-size:9px;margin-top:2px;}
+.s-ok{color:#1e8449;}.s-low{color:#ca6f1e;}.s-out{color:#e74c3c;}
+.cart-panel{background:#0d0b07;border-left:1px solid #1e1810;display:flex;flex-direction:column;}
+.cart-header{padding:12px 14px;border-bottom:1px solid #1e1810;font-size:8px;letter-spacing:4px;color:#8a6b2a;text-transform:uppercase;}
+.cart-items{flex:1;min-height:180px;max-height:320px;overflow-y:auto;}
+.cart-empty{padding:24px 14px;text-align:center;font-size:11px;color:#3a2e18;font-style:italic;}
+.cart-item{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;border-bottom:1px solid #131008;gap:6px;}
+.cart-item-name{font-size:11px;color:#d4c9a8;flex:1;line-height:1.3;}
+.qty-ctrl{display:flex;align-items:center;gap:3px;}
+.qty-btn{width:18px;height:18px;border:1px solid #2a2218;background:#1a1510;color:#8a6b2a;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.qty-btn:hover{border-color:#c9a84c;color:#c9a84c;}
+.qty-num{font-size:12px;color:#c9a84c;font-weight:700;min-width:16px;text-align:center;}
+.cart-subtotal{font-size:11px;color:#c9a84c;font-weight:700;min-width:55px;text-align:right;}
+.cart-footer{border-top:2px solid #c9a84c;padding:12px;}
+.total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.total-label{font-size:10px;color:#8a6b2a;letter-spacing:2px;text-transform:uppercase;}
+.total-val{font-size:20px;font-weight:700;color:#c9a84c;}
+.btn-primary{width:100%;padding:10px;background:#c9a84c;border:none;color:#080705;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;}
+.btn-primary:hover{background:#e8c96a;}
+.btn-ghost{width:100%;padding:6px;background:transparent;border:1px solid #1e1810;color:#3a2e18;font-size:10px;cursor:pointer;margin-top:5px;letter-spacing:1px;text-transform:uppercase;}
+.btn-ghost:hover{border-color:#e74c3c;color:#e74c3c;}
+.history-section{border-top:1px solid #1e1810;padding:14px;grid-column:1/-1;}
+.htable{width:100%;border-collapse:collapse;font-size:11px;}
+.htable th{text-align:left;padding:5px 8px;font-size:8px;letter-spacing:3px;color:#3a2e18;text-transform:uppercase;border-bottom:1px solid #1e1810;font-weight:400;}
+.htable td{padding:7px 8px;border-bottom:1px solid #131008;vertical-align:top;}
+.htable td.amt{font-weight:700;text-align:right;}
+.htable td.tm{color:#3a2e18;font-size:10px;}
+.htable td.it{color:#8a6b2a;font-size:10px;}
+.tag{display:inline-block;font-size:8px;padding:2px 6px;letter-spacing:1px;}
+.tag-v{background:#1a2e1a;color:#1e8449;}.tag-d{background:#2e1a1a;color:#e74c3c;}
+.dep-form{background:#0d0b07;border:1px solid #1e1810;padding:14px;margin-bottom:14px;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+@media(max-width:600px){.form-grid{grid-template-columns:1fr;}}
+.form-field{display:flex;flex-direction:column;gap:4px;}
+.form-field label{font-size:8px;letter-spacing:3px;color:#5a4220;text-transform:uppercase;}
+.form-field input,.form-field select{background:#080705;border:1px solid #1e1810;color:#d4c9a8;padding:8px 10px;font-size:12px;width:100%;}
+.form-field input:focus,.form-field select:focus{outline:none;border-color:#8a6b2a;}
+.form-field select option{background:#080705;}
+.stock-toolbar{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.stock-filter-btn{padding:6px 12px;background:#0d0b07;border:1px solid #1e1810;color:#5a4220;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;}
+.stock-filter-btn.active{border-color:#c9a84c;color:#c9a84c;}
+.stock-search{flex:1;min-width:140px;background:#0d0b07;border:1px solid #1e1810;color:#d4c9a8;padding:7px 12px;font-size:12px;}
+.stock-search:focus{outline:none;border-color:#8a6b2a;}
+.stock-table{width:100%;border-collapse:collapse;font-size:12px;}
+.stock-table th{text-align:left;padding:8px 10px;font-size:8px;letter-spacing:3px;color:#5a4220;text-transform:uppercase;border-bottom:1px solid #1e1810;font-weight:400;background:#0d0b07;}
+.stock-table td{padding:9px 10px;border-bottom:1px solid #131008;vertical-align:middle;}
+.stock-table tr:hover td{background:#0d0b07;}
+.stock-name{font-weight:700;color:#d4c9a8;}
+.stock-cat-badge{display:inline-block;font-size:8px;padding:2px 6px;background:#1a1510;color:#5a4220;letter-spacing:1px;margin-left:6px;}
+.bar-wrap{width:80px;height:5px;background:#131008;display:inline-block;vertical-align:middle;margin-right:8px;}
+.bar-inner{height:5px;transition:width .3s;}
+.stock-qty-cell{display:flex;align-items:center;gap:6px;}
+.stock-edit-ctrl{display:flex;align-items:center;gap:4px;flex-wrap:wrap;}
+.stock-edit-input{width:52px;background:#0d0b07;border:1px solid #2a2218;color:#c9a84c;font-size:13px;font-weight:700;padding:4px 6px;text-align:center;}
+.stock-edit-input:focus{outline:none;border-color:#c9a84c;}
+.stock-btn{padding:4px 9px;font-size:10px;font-weight:700;letter-spacing:1px;cursor:pointer;border:none;}
+.btn-add{background:#1e2e1a;color:#1e8449;border:1px solid #1e3a1a;}.btn-add:hover{background:#27401e;}
+.btn-set{background:#1a1e2e;color:#2980b9;border:1px solid #1a2a3e;}.btn-set:hover{background:#1e2840;}
+.btn-remove{background:#2e1a1a;color:#e74c3c;border:1px solid #3e1a1a;}.btn-remove:hover{background:#401e1e;}
+.stat-pill{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;letter-spacing:1px;}
+.pill-ok{background:#1a2e1a;color:#1e8449;}.pill-low{background:#2e2010;color:#ca6f1e;}.pill-out{background:#2e1a1a;color:#e74c3c;}
+.log-item{display:flex;align-items:center;gap:10px;padding:6px 8px;border-bottom:1px solid #131008;font-size:11px;}
+.log-time{color:#3a2e18;min-width:60px;font-size:10px;}.log-msg{color:#8a6b2a;flex:1;}.log-delta{font-weight:700;min-width:50px;text-align:right;}
+.export-box{background:#0d0b07;border:1px solid #c9a84c;padding:16px;margin-bottom:14px;}
+.export-title{font-size:10px;letter-spacing:3px;color:#c9a84c;text-transform:uppercase;margin-bottom:12px;}
+.export-line{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #131008;font-size:12px;}
+.export-line.etotal{border-top:1px solid #c9a84c;border-bottom:none;margin-top:6px;padding-top:8px;font-weight:700;}
+.export-line span:first-child{color:#8a6b2a;}
+.btn-export{background:#1a1510;border:1px solid #c9a84c;color:#c9a84c;padding:9px 18px;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;margin-right:8px;}
+.btn-export:hover{background:#c9a84c;color:#080705;}
+.toast{position:fixed;bottom:20px;right:20px;padding:10px 18px;font-size:12px;font-weight:700;letter-spacing:1px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;border-radius:2px;}
+.toast.show{opacity:1;}
+</style>
+<style type="text/css" id="operaUserStyle"></style></head>
+<body>
+
+<div class="app-header">
+  <div class="app-logo">
+    <div class="crest">PB</div>
+    <div>
+      <div class="app-title">Pacific Bluff</div>
+      <div class="app-sub">Caisse &nbsp;·&nbsp; Familia Monte Gomez</div>
+    </div>
+  </div>
+  <div>
+    <div class="clock-time" id="cl-time">14:10:55</div>
+    <div class="clock-date" id="cl-date">19 avril 2026</div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab(&#39;ventes&#39;)">Ventes</div>
+  <div class="tab" onclick="switchTab(&#39;depenses&#39;)">Dépenses</div>
+  <div class="tab" onclick="switchTab(&#39;stock&#39;)">Stock</div>
+  <div class="tab" onclick="switchTab(&#39;export&#39;)">Export</div>
+</div>
+
+<div class="kpi-bar">
+  <div class="kpi"><div class="kpi-label">Recettes</div><div class="kpi-val gold" id="k-rec">0 $</div></div>
+  <div class="kpi"><div class="kpi-label">Dépenses</div><div class="kpi-val red" id="k-dep">0 $</div></div>
+  <div class="kpi"><div class="kpi-label">Solde net</div><div class="kpi-val green" id="k-sol">0 $</div></div>
+  <div class="kpi"><div class="kpi-label">Alertes stock</div><div class="kpi-val orange" id="k-alerte">0</div></div>
+</div>
+
+<div id="tab-ventes" class="panel active">
+  <div class="main-grid">
+    <div class="products-area">
+      <div class="panel-title">Produits</div>
+      <div class="cat-section"><div class="cat-label">Spiritueux</div><div class="products-grid" id="g-spi"><div class="prod-btn" id="pb-Poliakov"><div class="prod-name">Poliakov</div><div class="prod-price">1 200 $</div><div class="prod-stock s-ok">Stock: 20</div></div><div class="prod-btn" id="pb-Poliakov Fraise"><div class="prod-name">Poliakov Fraise</div><div class="prod-price">1 200 $</div><div class="prod-stock s-ok">Stock: 20</div></div><div class="prod-btn" id="pb-Poliakov Citron"><div class="prod-name">Poliakov Citron</div><div class="prod-price">1 200 $</div><div class="prod-stock s-ok">Stock: 20</div></div><div class="prod-btn" id="pb-Jack D. Miel"><div class="prod-name">Jack D. Miel</div><div class="prod-price">1 200 $</div><div class="prod-stock s-ok">Stock: 20</div></div><div class="prod-btn" id="pb-Jack D. Pomme"><div class="prod-name">Jack D. Pomme</div><div class="prod-price">1 200 $</div><div class="prod-stock s-ok">Stock: 20</div></div><div class="prod-btn" id="pb-Pastis"><div class="prod-name">Pastis</div><div class="prod-price">1 000 $</div><div class="prod-stock s-ok">Stock: 20</div></div><div class="prod-btn" id="pb-Tequila"><div class="prod-name">Tequila</div><div class="prod-price">1 000 $</div><div class="prod-stock s-ok">Stock: 20</div></div><div class="prod-btn" id="pb-Heineken"><div class="prod-name">Heineken</div><div class="prod-price">800 $</div><div class="prod-stock s-ok">Stock: 20</div></div></div></div>
+      <div class="cat-section"><div class="cat-label">Cocktails</div><div class="products-grid" id="g-coc"><div class="prod-btn" id="pb-Sex on the Beach"><div class="prod-name">Sex on the Beach</div><div class="prod-price">1 500 $</div><div class="prod-stock s-ok">Stock: 20</div></div><div class="prod-btn" id="pb-Mojito"><div class="prod-name">Mojito</div><div class="prod-price">1 500 $</div><div class="prod-stock s-ok">Stock: 20</div></div><div class="prod-btn" id="pb-Strawberry Margarita"><div class="prod-name">Strawberry Margarita</div><div class="prod-price">1 000 $</div><div class="prod-stock s-ok">Stock: 20</div></div></div></div>
+      <div class="cat-section"><div class="cat-label">Softs</div><div class="products-grid" id="g-sof"><div class="prod-btn" id="pb-Coca-Cola"><div class="prod-name">Coca-Cola</div><div class="prod-price">500 $</div><div class="prod-stock s-ok">Stock: 20</div></div><div class="prod-btn" id="pb-Coca Cherry"><div class="prod-name">Coca Cherry</div><div class="prod-price">500 $</div><div class="prod-stock s-ok">Stock: 20</div></div><div class="prod-btn" id="pb-Coca Zero"><div class="prod-name">Coca Zero</div><div class="prod-price">500 $</div><div class="prod-stock s-ok">Stock: 20</div></div><div class="prod-btn" id="pb-Red Bull"><div class="prod-name">Red Bull</div><div class="prod-price">500 $</div><div class="prod-stock s-ok">Stock: 20</div></div><div class="prod-btn" id="pb-Ice Tea"><div class="prod-name">Ice Tea</div><div class="prod-price">500 $</div><div class="prod-stock s-ok">Stock: 20</div></div><div class="prod-btn" id="pb-Eau"><div class="prod-name">Eau</div><div class="prod-price">50 $</div><div class="prod-stock s-ok">Stock: 20</div></div></div></div>
+    </div>
+    <div class="cart-panel">
+      <div class="cart-header">Commande en cours</div>
+      <div class="cart-items" id="cart-items"><div class="cart-empty">Aucun article</div></div>
+      <div class="cart-footer">
+        <div class="total-row"><span class="total-label">Total</span><span class="total-val" id="cart-total">0 $</span></div>
+        <button class="btn-primary" onclick="validateSale()">Valider la vente</button>
+        <button class="btn-ghost" onclick="clearCart()">Vider le panier</button>
+      </div>
+    </div>
+  </div>
+  <div class="history-section">
+    <div class="panel-title">Historique</div>
+    <table class="htable">
+      <thead><tr><th>Heure</th><th>Détail</th><th style="text-align:right">Montant</th><th>Type</th></tr></thead>
+      <tbody id="hist-body"><tr><td colspan="4" style="color:#3a2e18;font-style:italic;padding:14px 8px;">Aucune transaction</td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+<div id="tab-depenses" class="panel">
+  <div class="panel-title">Enregistrer une dépense</div>
+  <div class="dep-form">
+    <div class="form-grid">
+      <div class="form-field"><label>Description</label><input type="text" id="dep-desc" placeholder="Ex: Réapprovisionnement"></div>
+      <div class="form-field"><label>Catégorie</label>
+        <select id="dep-cat">
+          <option>Stock / Boissons</option><option>Salaires</option><option>Entretien</option>
+          <option>Équipement</option><option>Sécurité</option><option>Autre</option>
+        </select>
+      </div>
+      <div class="form-field"><label>Montant ($)</label><input type="number" id="dep-amt" placeholder="0" min="0"></div>
+      <div class="form-field"><label>Note</label><input type="text" id="dep-note" placeholder="Optionnel"></div>
+    </div>
+    <button class="btn-primary" style="width:auto;padding:9px 24px;" onclick="addDepense()">Enregistrer</button>
+  </div>
+  <div class="panel-title">Dépenses de session</div>
+  <table class="htable">
+    <thead><tr><th>Heure</th><th>Description</th><th>Catégorie</th><th>Note</th><th style="text-align:right">Montant</th></tr></thead>
+    <tbody id="dep-body"><tr><td colspan="5" style="color:#3a2e18;font-style:italic;padding:14px 8px;">Aucune dépense</td></tr></tbody>
+  </table>
+</div>
+
+<div id="tab-stock" class="panel">
+  <div class="panel-title">Modifier le stock</div>
+  <div class="stock-toolbar">
+    <button class="stock-filter-btn active" onclick="filterStock(&#39;all&#39;,this)">Tous</button>
+    <button class="stock-filter-btn" onclick="filterStock(&#39;ok&#39;,this)">OK</button>
+    <button class="stock-filter-btn" onclick="filterStock(&#39;low&#39;,this)">Alerte</button>
+    <button class="stock-filter-btn" onclick="filterStock(&#39;out&#39;,this)">Rupture</button>
+    <input class="stock-search" type="text" placeholder="Rechercher..." oninput="searchStock(this.value)">
+  </div>
+  <table class="stock-table" id="stock-table">
+    <thead><tr><th>Produit</th><th>Quantité</th><th>Statut</th><th>Modifier</th></tr></thead>
+    <tbody id="stock-tbody"></tbody>
+  </table>
+  <div style="margin-top:16px;">
+    <div class="panel-title">Journal des modifications</div>
+    <div id="stock-log-list"><div style="color:#3a2e18;font-style:italic;font-size:11px;padding:10px 0;">Aucune modification</div></div>
+  </div>
+</div>
+
+<div id="tab-export" class="panel">
+  <div class="panel-title">Récapitulatif de session</div>
+  <div class="export-box" id="export-box"></div>
+  <button class="btn-export" onclick="copyExport()">Copier le récap</button>
+  <button class="btn-export" onclick="window.print()">Imprimer</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const PRODUCTS={
+  spi:[
+    {name:"Poliakov",price:1200,cat:"Vodka"},
+    {name:"Poliakov Fraise",price:1200,cat:"Vodka"},
+    {name:"Poliakov Citron",price:1200,cat:"Vodka"},
+    {name:"Jack D. Miel",price:1200,cat:"Whisky"},
+    {name:"Jack D. Pomme",price:1200,cat:"Whisky"},
+    {name:"Pastis",price:1000,cat:"Autre"},
+    {name:"Tequila",price:1000,cat:"Autre"},
+    {name:"Heineken",price:800,cat:"Bière"},
+  ],
+  coc:[
+    {name:"Sex on the Beach",price:1500,cat:"Cocktail"},
+    {name:"Mojito",price:1500,cat:"Cocktail"},
+    {name:"Strawberry Margarita",price:1000,cat:"Cocktail"},
+  ],
+  sof:[
+    {name:"Coca-Cola",price:500,cat:"Soft"},
+    {name:"Coca Cherry",price:500,cat:"Soft"},
+    {name:"Coca Zero",price:500,cat:"Soft"},
+    {name:"Red Bull",price:500,cat:"Soft"},
+    {name:"Ice Tea",price:500,cat:"Soft"},
+    {name:"Eau",price:50,cat:"Soft"},
+  ]
+};
+let stock={},cart={},history=[],depenses=[],stockLog=[];
+let totalRec=0,totalDep=0,currentFilter='all',currentSearch='';
+
+function initStock(){
+  [...PRODUCTS.spi,...PRODUCTS.coc,...PRODUCTS.sof].forEach(p=>{
+    stock[p.name]={qty:20,cat:p.cat,price:p.price,initial:20};
+  });
+}
+function fmt(n){return Math.round(n).toLocaleString('fr-FR')+' $';}
+function nowT(){return new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
+function getStatus(q){return q<=0?'out':q<=5?'low':'ok';}
+
+function switchTab(id){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  ['ventes','depenses','stock','export'].forEach((t,i)=>{
+    if(t===id){document.querySelectorAll('.tab')[i].classList.add('active');document.getElementById('tab-'+id).classList.add('active');}
+  });
+  if(id==='stock')renderStockTable();
+  if(id==='export')renderExport();
+}
+
+function buildProducts(){
+  [['spi','g-spi'],['coc','g-coc'],['sof','g-sof']].forEach(([cat,gid])=>{
+    const g=document.getElementById(gid);
+    PRODUCTS[cat].forEach(p=>{
+      const b=document.createElement('div');b.className='prod-btn';b.id='pb-'+p.name;
+      b.onclick=()=>addToCart(p.name,p.price);renderBtn(b,p);g.appendChild(b);
+    });
+  });
+}
+function renderBtn(btn,p){
+  const s=stock[p.name],st=getStatus(s.qty);
+  const cls=st==='ok'?'s-ok':st==='low'?'s-low':'s-out';
+  const lbl=st==='out'?'RUPTURE':st==='low'?'Alerte: '+s.qty:'Stock: '+s.qty;
+  btn.innerHTML=`<div class="prod-name">${p.name}</div><div class="prod-price">${fmt(p.price)}</div><div class="prod-stock ${cls}">${lbl}</div>`;
+}
+function refreshBtns(){[...PRODUCTS.spi,...PRODUCTS.coc,...PRODUCTS.sof].forEach(p=>{const b=document.getElementById('pb-'+p.name);if(b)renderBtn(b,p);});updateKPIs();}
+
+function addToCart(name,price){
+  if(stock[name]&&stock[name].qty<=0){showToast('Rupture de stock !','#e74c3c');return;}
+  if(!cart[name])cart[name]={price,qty:0};
+  cart[name].qty++;renderCart();
+}
+function changeQty(name,d){
+  if(!cart[name])return;cart[name].qty+=d;
+  if(cart[name].qty<=0)delete cart[name];renderCart();
+}
+function renderCart(){
+  const c=document.getElementById('cart-items'),keys=Object.keys(cart);let total=0;
+  if(!keys.length){c.innerHTML='<div class="cart-empty">Aucun article</div>';document.getElementById('cart-total').textContent='0 $';return;}
+  c.innerHTML=keys.map(name=>{
+    const item=cart[name],sub=item.price*item.qty;total+=sub;
+    return`<div class="cart-item"><div class="cart-item-name">${name}</div><div class="qty-ctrl"><div class="qty-btn" onclick="changeQty('${name}',-1)">-</div><div class="qty-num">${item.qty}</div><div class="qty-btn" onclick="changeQty('${name}',1)">+</div></div><div class="cart-subtotal">${fmt(sub)}</div></div>`;
+  }).join('');
+  document.getElementById('cart-total').textContent=fmt(total);
+}
+function validateSale(){
+  const keys=Object.keys(cart);if(!keys.length){showToast('Panier vide !','#e74c3c');return;}
+  const total=keys.reduce((s,n)=>s+cart[n].price*cart[n].qty,0);
+  const qty=keys.reduce((s,n)=>s+cart[n].qty,0);
+  const articles=keys.map(n=>`${cart[n].qty}x ${n}`).join(', ');
+  keys.forEach(n=>{if(stock[n])stock[n].qty-=cart[n].qty;});
+  history.unshift({time:nowT(),articles,amount:total,qty});
+  totalRec+=total;clearCart();updateKPIs();renderHistory();refreshBtns();
+  showToast('Vente validée — '+fmt(total),'#1e8449');
+}
+function clearCart(){cart={};renderCart();}
+
+function updateKPIs(){
+  const sol=totalRec-totalDep;
+  const alertes=[...PRODUCTS.spi,...PRODUCTS.coc,...PRODUCTS.sof].filter(p=>getStatus(stock[p.name].qty)!=='ok').length;
+  document.getElementById('k-rec').textContent=fmt(totalRec);
+  document.getElementById('k-dep').textContent=fmt(totalDep);
+  document.getElementById('k-sol').textContent=fmt(sol);
+  document.getElementById('k-sol').className='kpi-val '+(sol>=0?'green':'red');
+  document.getElementById('k-alerte').textContent=alertes;
+  document.getElementById('k-alerte').className='kpi-val '+(alertes>0?'orange':'green');
+}
+function renderHistory(){
+  const b=document.getElementById('hist-body');
+  const all=[...history.map(h=>({...h,type:'v'})),...depenses.map(d=>({time:d.time,articles:d.desc+' ('+d.cat+')',amount:d.amount,type:'d'}))].sort((a,b)=>b.time.localeCompare(a.time));
+  if(!all.length){b.innerHTML='<tr><td colspan="4" style="color:#3a2e18;font-style:italic;padding:14px 8px;">Aucune transaction</td></tr>';return;}
+  b.innerHTML=all.map(r=>`<tr><td class="tm">${r.time}</td><td class="it">${r.articles}</td><td class="amt" style="color:${r.type==='v'?'#c9a84c':'#e74c3c'}">${r.type==='v'?'+':'-'}${fmt(r.amount)}</td><td><span class="tag ${r.type==='v'?'tag-v':'tag-d'}">${r.type==='v'?'VENTE':'DÉPENSE'}</span></td></tr>`).join('');
+}
+function addDepense(){
+  const desc=document.getElementById('dep-desc').value.trim();
+  const cat=document.getElementById('dep-cat').value;
+  const amt=parseFloat(document.getElementById('dep-amt').value);
+  const note=document.getElementById('dep-note').value.trim();
+  if(!desc||!amt||amt<=0){showToast('Remplis tous les champs','#e74c3c');return;}
+  depenses.unshift({time:nowT(),desc,cat,amount:amt,note});totalDep+=amt;
+  document.getElementById('dep-desc').value='';document.getElementById('dep-amt').value='';document.getElementById('dep-note').value='';
+  updateKPIs();renderHistory();renderDepenses();showToast('Dépense enregistrée — '+fmt(amt),'#ca6f1e');
+}
+function renderDepenses(){
+  const b=document.getElementById('dep-body');
+  if(!depenses.length){b.innerHTML='<tr><td colspan="5" style="color:#3a2e18;font-style:italic;padding:14px 8px;">Aucune dépense</td></tr>';return;}
+  b.innerHTML=depenses.map(d=>`<tr><td class="tm">${d.time}</td><td>${d.desc}</td><td class="it">${d.cat}</td><td class="it">${d.note||'—'}</td><td class="amt" style="color:#e74c3c;">${fmt(d.amount)}</td></tr>`).join('');
+}
+function renderStockTable(){
+  const all=[...PRODUCTS.spi,...PRODUCTS.coc,...PRODUCTS.sof];
+  const filtered=all.filter(p=>{
+    const st=getStatus(stock[p.name].qty);
+    const mf=currentFilter==='all'||(currentFilter===st);
+    const ms=!currentSearch||p.name.toLowerCase().includes(currentSearch.toLowerCase());
+    return mf&&ms;
+  });
+  const tbody=document.getElementById('stock-tbody');
+  if(!filtered.length){tbody.innerHTML='<tr><td colspan="4" style="color:#3a2e18;font-style:italic;padding:16px 10px;">Aucun produit trouvé</td></tr>';return;}
+  tbody.innerHTML=filtered.map(p=>{
+    const s=stock[p.name],st=getStatus(s.qty);
+    const pct=Math.max(0,Math.min(100,Math.round(s.qty/Math.max(s.initial,1)*100)));
+    const barCol=st==='ok'?'#1e8449':st==='low'?'#ca6f1e':'#e74c3c';
+    const pillCls=st==='ok'?'pill-ok':st==='low'?'pill-low':'pill-out';
+    const pillLbl=st==='ok'?'OK':st==='low'?'ALERTE':'RUPTURE';
+    const sid='inp-'+p.name.replace(/[^a-z0-9]/gi,'_');
+    return`<tr><td><span class="stock-name">${p.name}</span><span class="stock-cat-badge">${p.cat}</span></td>
+    <td><div class="stock-qty-cell"><div class="bar-wrap"><div class="bar-inner" style="width:${pct}%;background:${barCol};"></div></div><span style="font-size:15px;font-weight:700;color:${barCol};">${s.qty}</span></div></td>
+    <td><span class="stat-pill ${pillCls}">${pillLbl}</span></td>
+    <td><div class="stock-edit-ctrl"><input class="stock-edit-input" type="number" id="${sid}" value="1" min="1" max="999"><button class="stock-btn btn-add" onclick="modStock('${p.name}','add','${sid}')">+ Ajouter</button><button class="stock-btn btn-set" onclick="modStock('${p.name}','set','${sid}')">= Définir</button><button class="stock-btn btn-remove" onclick="modStock('${p.name}','sub','${sid}')">- Retirer</button></div></td></tr>`;
+  }).join('');
+}
+function modStock(name,action,inputId){
+  const val=parseInt(document.getElementById(inputId).value)||1;
+  if(val<=0)return;
+  const s=stock[name],before=s.qty;
+  let after,logMsg,delta,col;
+  if(action==='add'){after=before+val;delta='+'+val;logMsg=`Ajout ${val}x "${name}"`;col='#1e8449';}
+  else if(action==='set'){after=val;delta='='+val;logMsg=`Stock "${name}" défini à ${val}`;col='#2980b9';stock[name].initial=val;}
+  else{after=Math.max(0,before-val);delta='-'+Math.min(val,before);logMsg=`Retrait ${Math.min(val,before)}x "${name}"`;col='#e74c3c';}
+  stock[name].qty=after;
+  stockLog.unshift({time:nowT(),msg:logMsg,delta,color:col});
+  renderStockTable();renderStockLog();refreshBtns();updateKPIs();showToast(logMsg,col);
+}
+function renderStockLog(){
+  const c=document.getElementById('stock-log-list');
+  if(!stockLog.length){c.innerHTML='<div style="color:#3a2e18;font-style:italic;font-size:11px;padding:10px 0;">Aucune modification</div>';return;}
+  c.innerHTML=stockLog.slice(0,12).map(l=>`<div class="log-item"><span class="log-time">${l.time}</span><span class="log-msg">${l.msg}</span><span class="log-delta" style="color:${l.color}">${l.delta}</span></div>`).join('');
+}
+function filterStock(f,btn){currentFilter=f;document.querySelectorAll('.stock-filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderStockTable();}
+function searchStock(v){currentSearch=v;renderStockTable();}
+function renderExport(){
+  const sol=totalRec-totalDep,d=new Date();
+  const alertes=[...PRODUCTS.spi,...PRODUCTS.coc,...PRODUCTS.sof].filter(p=>getStatus(stock[p.name].qty)!=='ok');
+  document.getElementById('export-box').innerHTML=`
+    <div class="export-title">Pacific Bluff — Rapport de session</div>
+    <div class="export-line"><span>Date</span><span>${d.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})}</span></div>
+    <div class="export-line"><span>Clôture</span><span>${nowT()}</span></div>
+    <div class="export-line"><span>Ventes</span><span>${history.length}</span></div>
+    <div class="export-line"><span>Articles vendus</span><span>${history.reduce((s,h)=>s+h.qty,0)}</span></div>
+    <div class="export-line"><span>Dépenses</span><span>${depenses.length}</span></div>
+    <div class="export-line"><span>Recettes brutes</span><span style="color:#c9a84c;font-weight:700;">${fmt(totalRec)}</span></div>
+    <div class="export-line"><span>Dépenses totales</span><span style="color:#e74c3c;font-weight:700;">${fmt(totalDep)}</span></div>
+    <div class="export-line"><span>Alertes stock</span><span style="color:${alertes.length?'#ca6f1e':'#1e8449'}">${alertes.length>0?alertes.map(p=>p.name).join(', '):'Aucun'}</span></div>
+    <div class="export-line etotal"><span>SOLDE NET SESSION</span><span style="color:${sol>=0?'#1e8449':'#e74c3c'};font-size:16px;">${fmt(sol)}</span></div>`;
+}
+function copyExport(){
+  const sol=totalRec-totalDep,d=new Date();
+  const txt=`PACIFIC BLUFF — Rapport\n${d.toLocaleDateString('fr-FR')}\nRecettes: ${fmt(totalRec)}\nDépenses: ${fmt(totalDep)}\nSolde: ${fmt(sol)}\nVentes: ${history.length}`;
+  navigator.clipboard.writeText(txt).then(()=>showToast('Copié !','#1e8449')).catch(()=>showToast('Impossible','#ca6f1e'));
+}
+function showToast(msg,bg){
+  const t=document.getElementById('toast');t.textContent=msg;t.style.background=bg||'#1e8449';
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);
+}
+function updateClock(){
+  const d=new Date();
+  document.getElementById('cl-time').textContent=d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  document.getElementById('cl-date').textContent=d.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+}
+initStock();buildProducts();updateClock();setInterval(updateClock,1000);
+</script>
+
+
+</body></html>
